@@ -1,0 +1,47 @@
+title: Service Registered From Non-Standard Binary Path
+id: 6996fcbe-7650-4fd9-b1e5-b80b898f4593
+status: experimental
+description: |
+    Detects a Windows service ImagePath being set to a binary outside the
+    standard system and application directories (Windows, Program Files,
+    driver store). Adversaries commonly install services pointing at
+    user-writable paths such as C:\Users\Public or C:\ProgramData to gain
+    SYSTEM-level persistence. Observed via Sysmon Event ID 13 (registry
+    value set) on the ImagePath value under HKLM\...\Services.
+references:
+    - https://attack.mitre.org/techniques/T1543/003/
+    - https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon
+author: SigmaForge
+date: 2026-07-14
+tags:
+    - attack.persistence
+    - attack.privilege-escalation
+    - attack.t1543.003
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        EventType: SetValue
+        TargetObject|contains: '\Services\'
+        TargetObject|endswith: '\ImagePath'
+    filter_standard_paths:
+        Details|startswith:
+            - 'C:\Windows\'
+            - 'C:\Program Files\'
+            - 'C:\Program Files (x86)\'
+            - '"C:\Windows\'
+            - '"C:\Program Files\'
+            - '"C:\Program Files (x86)\'
+            - '%SystemRoot%\'
+            - '%windir%\'
+            - '\SystemRoot\'
+            - 'System32\'
+            - '\??\C:\Windows\'
+    condition: selection and not filter_standard_paths
+falsepositives:
+    - Legitimate software that installs its service binary outside Program Files,
+      for example some developer tools and portable agents installed per-user
+    - Endpoint agents that register services from C:\ProgramData during staged
+      updates; baseline these per environment
+level: medium

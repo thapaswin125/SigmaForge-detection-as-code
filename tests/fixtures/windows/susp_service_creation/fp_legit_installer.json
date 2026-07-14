@@ -1,0 +1,11 @@
+{
+  "_comment": "Vendor installer registering its service from Program Files, quoted path with arguments",
+  "EventID": 13,
+  "EventType": "SetValue",
+  "UtcTime": "2026-07-03 14:03:51.210",
+  "Image": "C:\\Windows\\System32\\services.exe",
+  "ProcessId": 704,
+  "TargetObject": "HKLM\\System\\CurrentControlSet\\Services\\BackupAgent\\ImagePath",
+  "Details": "\"C:\\Program Files\\Veeam\\Backup\\VeeamAgent.exe\" -service",
+  "User": "NT AUTHORITY\\SYSTEM"
+}

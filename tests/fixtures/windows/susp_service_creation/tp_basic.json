@@ -1,0 +1,11 @@
+{
+  "_comment": "Service ImagePath set to an executable in a world-writable staging directory",
+  "EventID": 13,
+  "EventType": "SetValue",
+  "UtcTime": "2026-07-01 09:14:22.153",
+  "Image": "C:\\Windows\\System32\\services.exe",
+  "ProcessId": 704,
+  "TargetObject": "HKLM\\System\\CurrentControlSet\\Services\\WinSysUpdate\\ImagePath",
+  "Details": "C:\\Users\\Public\\Libraries\\winsysupd.exe",
+  "User": "NT AUTHORITY\\SYSTEM"
+}
