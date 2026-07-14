@@ -1,0 +1,6 @@
+# CI pipeline: lint, unit tests, integration tests, deploy. Implemented in Phase 9.
+name: ci
+on:
+  push:
+  pull_request:
+jobs: {}

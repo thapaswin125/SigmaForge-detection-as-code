@@ -1,0 +1,25 @@
+[project]
+name = "sigmaforge"
+version = "0.1.0"
+description = "Detection-as-code: Sigma rules with a lint/test/convert/deploy pipeline"
+requires-python = ">=3.11"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["sigmaforge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: tests that need a running Elasticsearch (run with --integration or ELASTIC_URL set)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]

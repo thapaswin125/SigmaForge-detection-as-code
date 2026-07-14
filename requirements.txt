@@ -1,0 +1,35 @@
+# SigmaForge pinned dependencies.
+# Full frozen set from a clean resolve on Python 3.12 (2026-07-14).
+# Direct dependencies:
+#   pySigma, pySigma-backend-elasticsearch, pysigma-pipeline-sysmon,
+#   pysigma-pipeline-windows, pytest, ruff, elasticsearch (client major
+#   pinned to 8 to match the Elasticsearch 8.x container in docker-compose.yml)
+certifi==2026.6.17
+charset-normalizer==3.4.9
+colorama==0.4.6
+diskcache==5.6.3
+diskcache-stubs==5.6.3.6.20240818
+elastic-transport==8.19.0
+elasticsearch==8.19.3
+idna==3.18
+iniconfig==2.3.0
+Jinja2==3.1.6
+jq==1.12.0
+MarkupSafe==3.0.3
+packaging==26.2
+pluggy==1.6.0
+Pygments==2.20.0
+pyparsing==3.3.2
+pySigma==1.4.0
+pySigma-backend-elasticsearch==2.1.0
+pysigma-pipeline-sysmon==2.0.0
+pysigma-pipeline-windows==2.0.0
+pytest==9.1.1
+python-dateutil==2.9.0.post0
+PyYAML==6.0.3
+requests==2.34.2
+ruff==0.15.21
+six==1.17.0
+types-PyYAML==6.0.12.20260518
+typing_extensions==4.16.0
+urllib3==2.7.0
