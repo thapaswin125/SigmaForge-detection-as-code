@@ -14,4 +14,7 @@ test:
 lint:
 	$(PY) -m ruff check sigmaforge tests
 
-.PHONY: install test lint
+coverage:
+	$(PY) -m sigmaforge.coverage
+
+.PHONY: install test lint coverage
