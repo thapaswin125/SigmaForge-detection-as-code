@@ -28,6 +28,12 @@ lint:
 coverage:
 	$(PY) -m sigmaforge.coverage
 
+dashboard:
+	$(PY) -m sigmaforge.dashboard
+
+report:
+	$(PY) -m sigmaforge.report --kibana
+
 up:
 	docker compose up -d --wait
 
@@ -43,4 +49,4 @@ deploy:
 new-rule:
 	$(PY) -m sigmaforge.scaffold $(NAME)
 
-.PHONY: install test test-all lint coverage up down convert deploy new-rule
+.PHONY: install test test-all lint coverage dashboard report up down convert deploy new-rule
