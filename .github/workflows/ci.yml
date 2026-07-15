@@ -1,6 +1,91 @@
-# CI pipeline: lint, unit tests, integration tests, deploy. Implemented in Phase 9.
 name: ci
+
 on:
   push:
   pull_request:
-jobs: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -e . --no-deps
+      - name: Lint
+        run: ruff check sigmaforge tests
+      - name: Tier 1 tests (evaluator, metadata, rules)
+        run: pytest tests/test_evaluator.py tests/test_metadata.py tests/test_rules.py
+      - name: Coverage doc freshness
+        run: python -m sigmaforge.coverage --check
+
+  integration:
+    needs: test
+    runs-on: ubuntu-latest
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.19.3
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: "false"
+          ES_JAVA_OPTS: -Xms1g -Xmx1g
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -fs http://localhost:9200/_cluster/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -e . --no-deps
+      - name: Wait for Elasticsearch health
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fs http://localhost:9200/_cluster/health | grep -qE '"status":"(green|yellow)"'; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Elasticsearch never became healthy" >&2
+          exit 1
+      - name: Tier 2 integration tests
+        run: pytest --integration -v tests/test_integration.py
+        env:
+          ELASTIC_URL: http://localhost:9200
+
+  deploy:
+    needs: [test, integration]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -e . --no-deps
+      - name: Deploy rules
+        # The script is dry-run by default; --push is safe here because
+        # this job only runs on main and is gated by the production
+        # environment (require reviewers / restrict secrets there).
+        run: python -m sigmaforge.deploy --push
+        env:
+          ELASTIC_URL: ${{ secrets.ELASTIC_URL }}
+          ELASTIC_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
