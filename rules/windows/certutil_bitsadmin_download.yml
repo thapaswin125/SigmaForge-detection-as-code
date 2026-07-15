@@ -1,0 +1,41 @@
+title: Certutil Or Bitsadmin Used To Download A Remote File
+id: 882f7578-b453-49f6-9eac-0022bccf4947
+status: experimental
+description: |
+    Detects certutil.exe fetching content from a URL (urlcache/verifyctl
+    abuse) and bitsadmin.exe transfer jobs pulling from HTTP sources. Both
+    are signed Windows binaries routinely abused as downloaders to bring
+    second-stage payloads onto a host without touching a real browser.
+    Observed via Sysmon Event ID 1 (process creation). Ordinary certificate
+    operations and BITS queue management do not fire.
+references:
+    - https://attack.mitre.org/techniques/T1105/
+    - https://lolbas-project.github.io/lolbas/Binaries/Certutil/
+    - https://lolbas-project.github.io/lolbas/Binaries/Bitsadmin/
+author: SigmaForge
+date: 2026-07-14
+tags:
+    - attack.command-and-control
+    - attack.t1105
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_certutil:
+        Image|endswith: '\certutil.exe'
+        CommandLine|contains:
+            - 'urlcache'
+            - 'verifyctl'
+    selection_bitsadmin:
+        Image|endswith: '\bitsadmin.exe'
+        CommandLine|contains|windash: ' /transfer '
+    selection_url:
+        CommandLine|contains: 'http'
+    condition: (selection_certutil or selection_bitsadmin) and selection_url
+falsepositives:
+    - Administrators occasionally use bitsadmin transfers for internal file
+      distribution from intranet HTTP endpoints, prefer filtering on your
+      internal hostnames rather than allowing the tool wholesale
+    - Certificate troubleshooting that fetches a CRL or certificate over
+      HTTP with certutil -urlcache
+level: medium

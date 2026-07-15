@@ -1,0 +1,47 @@
+title: LSASS Process Access With Credential Dumping Access Mask
+id: e37b99bf-7268-4781-b3e9-9cd76a3f11cd
+status: experimental
+description: |
+    Detects processes opening a handle to lsass.exe with access masks
+    typically requested by credential dumping tools such as Mimikatz or
+    procdump (PROCESS_VM_READ combined with query rights, or full access).
+    Reading LSASS memory yields plaintext credentials, hashes, and Kerberos
+    tickets. Observed via Sysmon Event ID 10 (ProcessAccess). Known
+    security tooling and Windows crash handling are filtered out.
+references:
+    - https://attack.mitre.org/techniques/T1003/001/
+    - https://learn.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights
+author: SigmaForge
+date: 2026-07-14
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    product: windows
+    category: process_access
+detection:
+    selection:
+        TargetImage|endswith: '\lsass.exe'
+        GrantedAccess:
+            - '0x1010'
+            - '0x1410'
+            - '0x1438'
+            - '0x143A'
+            - '0x1FFFFF'
+    filter_defender:
+        SourceImage|startswith:
+            - 'C:\Program Files\Windows Defender\'
+            - 'C:\ProgramData\Microsoft\Windows Defender\Platform\'
+    filter_system_tools:
+        SourceImage:
+            - 'C:\Windows\System32\Taskmgr.exe'
+            - 'C:\Windows\System32\WerFault.exe'
+            - 'C:\Windows\SysWOW64\WerFault.exe'
+    condition: selection and not 1 of filter_*
+falsepositives:
+    - Antivirus and EDR engines scanning LSASS memory, add your vendor's
+      engine path to the filter
+    - Task Manager or Process Explorer run by administrators to inspect
+      process details
+    - Windows Error Reporting collecting a crash dump of a failing LSASS
+level: high

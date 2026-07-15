@@ -1,0 +1,11 @@
+{
+  "_comment": "Configuration Manager agent legitimately runs compliance scripts as encoded commands",
+  "EventID": 1,
+  "UtcTime": "2026-07-09 06:00:41.220",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -NoProfile -EncodedCommand IABnAGUAdAAtAHcAbQBpAG8AYgBqAGUAYwB0ACAAdwBpAG4AMwAyAF8AYgBpAG8AcwA=",
+  "ParentImage": "C:\\Windows\\CCM\\CcmExec.exe",
+  "ParentCommandLine": "C:\\Windows\\CCM\\CcmExec.exe",
+  "User": "NT AUTHORITY\\SYSTEM",
+  "IntegrityLevel": "System"
+}

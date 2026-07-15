@@ -1,0 +1,11 @@
+{
+  "_comment": "Ordinary signed logon script via -File, a naive any-powershell rule fires here",
+  "EventID": 1,
+  "UtcTime": "2026-07-09 08:30:12.590",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -ExecutionPolicy Bypass -File \\\\corp.local\\netlogon\\map-drives.ps1",
+  "ParentImage": "C:\\Windows\\System32\\gpscript.exe",
+  "ParentCommandLine": "gpscript.exe /logon",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "Medium"
+}

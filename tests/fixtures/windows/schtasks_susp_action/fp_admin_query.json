@@ -1,0 +1,11 @@
+{
+  "_comment": "Helpdesk listing scheduled tasks during troubleshooting, naive any-schtasks rule fires here",
+  "EventID": 1,
+  "UtcTime": "2026-07-08 10:12:44.871",
+  "Image": "C:\\Windows\\System32\\schtasks.exe",
+  "CommandLine": "schtasks /query /fo LIST /v /tn \\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe",
+  "User": "CORP\\helpdesk.lee",
+  "IntegrityLevel": "High"
+}

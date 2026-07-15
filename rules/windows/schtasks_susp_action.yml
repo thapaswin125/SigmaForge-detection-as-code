@@ -1,0 +1,50 @@
+title: Scheduled Task Created With Suspicious Action
+id: 37da0605-664b-4408-b390-b50edf0d3451
+status: experimental
+description: |
+    Detects schtasks.exe creating a task whose action launches a script
+    interpreter, LOLBIN, or a binary from a user-writable location.
+    Adversaries schedule such tasks for persistence and privilege
+    escalation because tasks can run as SYSTEM and survive reboots.
+    Observed via Sysmon Event ID 1 (process creation). Task creation whose
+    action points at installed application directories does not fire.
+references:
+    - https://attack.mitre.org/techniques/T1053/005/
+    - https://lolbas-project.github.io/lolbas/Binaries/Schtasks/
+author: SigmaForge
+date: 2026-07-14
+tags:
+    - attack.persistence
+    - attack.privilege-escalation
+    - attack.t1053.005
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_img:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains|windash: ' /create '
+    selection_susp_action:
+        CommandLine|contains:
+            - 'powershell'
+            - 'pwsh'
+            - 'cmd /c'
+            - 'cmd.exe /c'
+            - 'wscript'
+            - 'cscript'
+            - 'mshta'
+            - 'rundll32'
+            - 'regsvr32'
+            - 'C:\Users\'
+            - '%AppData%'
+            - '\AppData\'
+            - '%Temp%'
+            - 'C:\ProgramData\'
+            - 'C:\Perflogs\'
+    condition: selection_img and selection_susp_action
+falsepositives:
+    - Administrators and deployment scripts scheduling maintenance jobs that
+      run PowerShell or scripts from ProgramData, common for monitoring
+      agents, baseline the task names used by your tooling
+    - Developer machines scheduling build or sync scripts from user profiles
+level: medium

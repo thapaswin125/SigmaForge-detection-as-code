@@ -1,0 +1,11 @@
+{
+  "_comment": "Task action is a VBScript in a user profile, dash variant of /create",
+  "EventID": 1,
+  "UtcTime": "2026-07-08 08:41:17.664",
+  "Image": "C:\\Windows\\System32\\schtasks.exe",
+  "CommandLine": "schtasks -create -tn Updater -tr \"wscript.exe C:\\Users\\Public\\inv.vbs\" -sc minute -mo 15",
+  "ParentImage": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\7zS4F2.tmp\\setup.exe",
+  "ParentCommandLine": "setup.exe /S",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "Medium"
+}

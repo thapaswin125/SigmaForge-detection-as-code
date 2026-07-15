@@ -1,0 +1,11 @@
+{
+  "_comment": "RunOnce key loading a DLL from ProgramData through rundll32",
+  "EventID": 13,
+  "EventType": "SetValue",
+  "UtcTime": "2026-07-11 07:55:31.008",
+  "Image": "C:\\ProgramData\\cache\\setup.exe",
+  "ProcessId": 4410,
+  "TargetObject": "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\CacheInit",
+  "Details": "rundll32.exe C:\\ProgramData\\cache\\mcache.dll,Start",
+  "User": "NT AUTHORITY\\SYSTEM"
+}

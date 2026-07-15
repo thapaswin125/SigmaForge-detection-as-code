@@ -1,0 +1,11 @@
+{
+  "_comment": "PowerShell 7 with the short /ec dash variant, caught by windash expansion",
+  "EventID": 1,
+  "UtcTime": "2026-07-10 02:03:56.104",
+  "Image": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "CommandLine": "pwsh /ec SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkA",
+  "ParentImage": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\stage1.exe",
+  "ParentCommandLine": "stage1.exe",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "Medium"
+}

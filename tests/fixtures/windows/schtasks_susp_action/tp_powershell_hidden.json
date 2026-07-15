@@ -1,0 +1,11 @@
+{
+  "_comment": "Task created to run hidden PowerShell at logon, classic malware persistence",
+  "EventID": 1,
+  "UtcTime": "2026-07-07 19:02:33.120",
+  "Image": "C:\\Windows\\System32\\schtasks.exe",
+  "CommandLine": "schtasks /create /tn \"WindowsUpdateCheck\" /tr \"powershell -w hidden -File C:\\ProgramData\\update.ps1\" /sc onlogon /ru SYSTEM /f",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c install.bat",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "High"
+}

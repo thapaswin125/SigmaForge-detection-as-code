@@ -1,0 +1,14 @@
+{
+  "_comment": "EDR sensor injecting its monitoring thread into a browser, vendor path is filtered",
+  "EventID": 8,
+  "UtcTime": "2026-07-13 08:00:05.881",
+  "SourceImage": "C:\\Program Files\\CrowdStrike\\CSFalconService.exe",
+  "SourceProcessId": 2216,
+  "TargetImage": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "TargetProcessId": 6120,
+  "NewThreadId": 3410,
+  "StartAddress": "0x00007FFB40001000",
+  "StartModule": "C:\\Windows\\System32\\ntdll.dll",
+  "StartFunction": "LdrLoadDll",
+  "User": "NT AUTHORITY\\SYSTEM"
+}

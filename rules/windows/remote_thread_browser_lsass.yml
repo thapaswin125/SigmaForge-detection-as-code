@@ -1,0 +1,49 @@
+﻿title: Remote Thread Created In Browser Or LSASS Process
+id: 779949ae-cc05-44ac-9afc-917e99a1487d
+status: experimental
+description: |
+    Detects creation of a remote thread in a browser process or in
+    lsass.exe. Injecting into browsers is a staple of banking trojans and
+    infostealers seeking session cookies and credentials, while threads
+    created in LSASS frequently precede credential theft. Observed via
+    Sysmon Event ID 8 (CreateRemoteThread). Windows crash reporting and
+    known endpoint security engines are filtered as documented benign
+    sources of remote threads.
+references:
+    - https://attack.mitre.org/techniques/T1055/
+    - https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon
+author: SigmaForge
+date: 2026-07-14
+tags:
+    - attack.stealth
+    - attack.privilege-escalation
+    - attack.t1055
+logsource:
+    product: windows
+    category: create_remote_thread
+detection:
+    selection:
+        TargetImage|endswith:
+            - '\lsass.exe'
+            - '\chrome.exe'
+            - '\firefox.exe'
+            - '\msedge.exe'
+            - '\brave.exe'
+    filter_crash_reporting:
+        SourceImage:
+            - 'C:\Windows\System32\csrss.exe'
+            - 'C:\Windows\System32\WerFault.exe'
+            - 'C:\Windows\SysWOW64\WerFault.exe'
+            - 'C:\Windows\System32\wbem\WmiPrvSE.exe'
+    filter_security_tools:
+        SourceImage|startswith:
+            - 'C:\Program Files\Windows Defender\'
+            - 'C:\Program Files\CrowdStrike\'
+            - 'C:\Program Files\SentinelOne\'
+    condition: selection and not 1 of filter_*
+falsepositives:
+    - Windows Error Reporting and csrss create remote threads in crashing
+      processes as part of dump collection
+    - EDR and antivirus engines inject threads into monitored processes,
+      add your vendor's engine path to the filter
+level: high

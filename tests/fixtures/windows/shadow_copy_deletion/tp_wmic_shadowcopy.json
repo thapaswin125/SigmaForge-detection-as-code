@@ -1,0 +1,11 @@
+{
+  "_comment": "wmic variant of shadow copy destruction launched from PowerShell",
+  "EventID": 1,
+  "UtcTime": "2026-07-12 01:12:11.582",
+  "Image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+  "CommandLine": "wmic.exe shadowcopy delete /nointeractive",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "powershell -w hidden -File C:\\ProgramData\\clean.ps1",
+  "User": "NT AUTHORITY\\SYSTEM",
+  "IntegrityLevel": "System"
+}

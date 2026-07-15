@@ -1,0 +1,11 @@
+{
+  "_comment": "Software deployment creating an updater task whose action lives in Program Files, a naive any-/create rule fires here",
+  "EventID": 1,
+  "UtcTime": "2026-07-07 12:30:05.209",
+  "Image": "C:\\Windows\\System32\\schtasks.exe",
+  "CommandLine": "schtasks /create /tn \"Adobe Acrobat Update Task\" /tr \"C:\\Program Files (x86)\\Common Files\\Adobe\\ARM\\1.0\\AdobeARM.exe\" /sc daily /st 09:00",
+  "ParentImage": "C:\\Program Files (x86)\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe",
+  "ParentCommandLine": "\"C:\\Program Files (x86)\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe\"",
+  "User": "NT AUTHORITY\\SYSTEM",
+  "IntegrityLevel": "System"
+}

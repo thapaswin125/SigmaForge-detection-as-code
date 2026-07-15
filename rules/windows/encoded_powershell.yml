@@ -1,0 +1,43 @@
+﻿title: PowerShell Launched With Encoded Command
+id: 4cae9b05-a93d-46c0-9ece-d8c784b8737f
+status: experimental
+description: |
+    Detects PowerShell started with an encoded command line (-enc or
+    -EncodedCommand, including the /enc dash variant). Attackers encode
+    payloads in Base64 to evade naive command line inspection and to pass
+    complex payloads through other LOLBINs. Observed via Sysmon Event ID 1
+    (process creation). Managed automation frameworks that legitimately use
+    encoded commands (Configuration Manager, SCOM) are filtered by parent.
+references:
+    - https://attack.mitre.org/techniques/T1059/001/
+    - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe
+author: SigmaForge
+date: 2026-07-14
+tags:
+    - attack.execution
+    - attack.stealth
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_img:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+    selection_encoded:
+        CommandLine|contains|windash:
+            - ' -enc '
+            - ' -encodedcommand '
+            - ' -ec '
+    filter_managed_automation:
+        ParentImage|endswith:
+            - '\CcmExec.exe'
+            - '\MonitoringHost.exe'
+    condition: selection_img and selection_encoded and not filter_managed_automation
+falsepositives:
+    - Microsoft Configuration Manager and SCOM health scripts launch
+      PowerShell with encoded commands from their agent processes
+    - Some vendor installers wrap post-install steps in encoded PowerShell,
+      review the decoded payload before whitelisting the parent
+level: medium

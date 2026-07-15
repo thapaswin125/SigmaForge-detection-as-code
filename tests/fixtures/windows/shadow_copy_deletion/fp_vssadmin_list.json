@@ -1,0 +1,11 @@
+{
+  "_comment": "Administrator inventorying shadow copies before a restore, a naive any-vssadmin rule fires here",
+  "EventID": 1,
+  "UtcTime": "2026-07-12 09:41:27.905",
+  "Image": "C:\\Windows\\System32\\vssadmin.exe",
+  "CommandLine": "vssadmin.exe list shadows /for=C:",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe",
+  "User": "CORP\\admin.smith",
+  "IntegrityLevel": "High"
+}

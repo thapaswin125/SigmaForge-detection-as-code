@@ -1,0 +1,11 @@
+{
+  "_comment": "GPU vendor tray utility registering autostart from Program Files during driver install",
+  "EventID": 13,
+  "EventType": "SetValue",
+  "UtcTime": "2026-07-11 13:40:02.771",
+  "Image": "C:\\Program Files\\NVIDIA Corporation\\Installer2\\installerCore.exe",
+  "ProcessId": 7733,
+  "TargetObject": "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\NvBackend",
+  "Details": "\"C:\\Program Files (x86)\\NVIDIA Corporation\\Update Core\\NvBackend.exe\"",
+  "User": "NT AUTHORITY\\SYSTEM"
+}

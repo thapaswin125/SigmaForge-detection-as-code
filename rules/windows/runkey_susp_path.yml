@@ -1,0 +1,49 @@
+title: Run Key Persistence Pointing Outside Application Directories
+id: 3bae8dce-1ec1-4d23-9601-72435ea3d4f5
+status: experimental
+description: |
+    Detects a value being set under a CurrentVersion\Run or RunOnce key
+    whose payload lives outside Windows and Program Files. Malware commonly
+    persists via Run keys pointing at user-writable paths such as Public,
+    ProgramData, or Temp, often invoked through a script interpreter.
+    Observed via Sysmon Event ID 13 (registry value set). Well-known
+    per-user applications that legitimately autostart from AppData, such as
+    OneDrive, are filtered explicitly.
+references:
+    - https://attack.mitre.org/techniques/T1547/001/
+    - https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys
+author: SigmaForge
+date: 2026-07-14
+tags:
+    - attack.persistence
+    - attack.t1547.001
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        EventType: SetValue
+        TargetObject|contains:
+            - '\Microsoft\Windows\CurrentVersion\Run\'
+            - '\Microsoft\Windows\CurrentVersion\RunOnce\'
+    filter_app_paths:
+        Details|startswith:
+            - 'C:\Windows\'
+            - 'C:\Program Files\'
+            - 'C:\Program Files (x86)\'
+            - '"C:\Windows\'
+            - '"C:\Program Files\'
+            - '"C:\Program Files (x86)\'
+            - '%windir%\'
+            - '%ProgramFiles%\'
+    filter_known_appdata_apps:
+        Details|contains:
+            - '\AppData\Local\Microsoft\OneDrive\'
+            - '\AppData\Local\Microsoft\Teams\'
+    condition: selection and not 1 of filter_*
+falsepositives:
+    - Per-user applications that autostart from AppData, OneDrive and Teams
+      are filtered, extend the filter for others deployed in your fleet
+      such as Slack, Zoom, or Discord
+    - Portable tools users intentionally register for autostart
+level: medium

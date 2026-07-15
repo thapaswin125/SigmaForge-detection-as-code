@@ -1,0 +1,11 @@
+{
+  "_comment": "Ransomware precursor: vssadmin wiping all shadow copies quietly from a cmd chain",
+  "EventID": 1,
+  "UtcTime": "2026-07-12 01:12:09.336",
+  "Image": "C:\\Windows\\System32\\vssadmin.exe",
+  "CommandLine": "vssadmin.exe delete shadows /all /quiet",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c C:\\Users\\jdoe\\AppData\\Local\\Temp\\enc.bat",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "High"
+}

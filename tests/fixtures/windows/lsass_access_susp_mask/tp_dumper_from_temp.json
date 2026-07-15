@@ -1,0 +1,12 @@
+{
+  "_comment": "Unsigned dumper staged in user temp requesting VM_READ|QUERY_INFORMATION",
+  "EventID": 10,
+  "UtcTime": "2026-07-06 03:15:09.771",
+  "SourceImage": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\svchosts.exe",
+  "SourceProcessId": 9231,
+  "TargetImage": "C:\\Windows\\System32\\lsass.exe",
+  "TargetProcessId": 712,
+  "GrantedAccess": "0x1010",
+  "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d234|UNKNOWN(00007FF6A2B41000)",
+  "User": "CORP\\jdoe"
+}

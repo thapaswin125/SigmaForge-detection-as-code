@@ -1,0 +1,11 @@
+{
+  "_comment": "Admin verifying an installer checksum, a naive any-certutil rule fires here",
+  "EventID": 1,
+  "UtcTime": "2026-07-14 09:02:14.772",
+  "Image": "C:\\Windows\\System32\\certutil.exe",
+  "CommandLine": "certutil.exe -hashfile C:\\Downloads\\ubuntu-24.04-desktop.iso SHA256",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe",
+  "User": "CORP\\admin.smith",
+  "IntegrityLevel": "High"
+}

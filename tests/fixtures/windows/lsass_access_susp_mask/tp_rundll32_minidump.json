@@ -1,0 +1,12 @@
+{
+  "_comment": "comsvcs.dll MiniDump technique: rundll32 opening lsass with full access",
+  "EventID": 10,
+  "UtcTime": "2026-07-05 11:22:41.003",
+  "SourceImage": "C:\\Windows\\System32\\rundll32.exe",
+  "SourceProcessId": 5544,
+  "TargetImage": "C:\\Windows\\System32\\lsass.exe",
+  "TargetProcessId": 712,
+  "GrantedAccess": "0x1FFFFF",
+  "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9d234|C:\\Windows\\System32\\comsvcs.dll+25f10",
+  "User": "CORP\\jdoe"
+}

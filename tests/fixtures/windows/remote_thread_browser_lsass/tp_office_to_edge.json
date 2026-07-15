@@ -1,0 +1,14 @@
+{
+  "_comment": "Macro-armed Word injecting into Edge to inherit its network reputation",
+  "EventID": 8,
+  "UtcTime": "2026-07-13 16:22:03.410",
+  "SourceImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+  "SourceProcessId": 7332,
+  "TargetImage": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+  "TargetProcessId": 4488,
+  "NewThreadId": 9021,
+  "StartAddress": "0x00007FFA11B20000",
+  "StartModule": "",
+  "StartFunction": "",
+  "User": "CORP\\jdoe"
+}

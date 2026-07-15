@@ -1,0 +1,11 @@
+{
+  "_comment": "IT operator inspecting the BITS queue, a naive any-bitsadmin rule fires here",
+  "EventID": 1,
+  "UtcTime": "2026-07-14 13:20:41.098",
+  "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+  "CommandLine": "bitsadmin /list /allusers /verbose",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe",
+  "User": "CORP\\svc_deploy",
+  "IntegrityLevel": "High"
+}

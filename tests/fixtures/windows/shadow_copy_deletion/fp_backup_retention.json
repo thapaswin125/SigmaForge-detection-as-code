@@ -1,0 +1,11 @@
+{
+  "_comment": "Backup suite pruning aged shadow copies during retention cleanup, naive rule fires on the identical command line",
+  "EventID": 1,
+  "UtcTime": "2026-07-12 03:00:02.114",
+  "Image": "C:\\Windows\\System32\\vssadmin.exe",
+  "CommandLine": "vssadmin.exe delete shadows /for=C: /oldest /quiet",
+  "ParentImage": "C:\\Program Files\\Veeam\\Backup and Replication\\Backup\\Veeam.Backup.Manager.exe",
+  "ParentCommandLine": "\"C:\\Program Files\\Veeam\\Backup and Replication\\Backup\\Veeam.Backup.Manager.exe\" job:retention",
+  "User": "NT AUTHORITY\\SYSTEM",
+  "IntegrityLevel": "System"
+}
