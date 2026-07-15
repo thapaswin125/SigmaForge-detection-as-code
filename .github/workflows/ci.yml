@@ -85,7 +85,16 @@ jobs:
         # The script is dry-run by default; --push is safe here because
         # this job only runs on main and is gated by the production
         # environment (require reviewers / restrict secrets there).
-        run: python -m sigmaforge.deploy --push
+        # Without an ELASTIC_URL secret there is no target, so fall back
+        # to the dry run instead of failing the pipeline.
+        run: |
+          if [ -z "$ELASTIC_URL" ]; then
+            echo "No ELASTIC_URL secret configured on the production environment."
+            echo "Dry run only. Add ELASTIC_URL and ELASTIC_API_KEY secrets to deploy for real."
+            python -m sigmaforge.deploy
+          else
+            python -m sigmaforge.deploy --push
+          fi
         env:
           ELASTIC_URL: ${{ secrets.ELASTIC_URL }}
           ELASTIC_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
