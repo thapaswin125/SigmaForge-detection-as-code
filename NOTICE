@@ -1,0 +1,46 @@
+SigmaForge
+Copyright 2026 Thapaswin
+
+This product includes software developed as part of the SigmaForge
+detection-as-code pipeline.
+
+Licensed under the Apache License, Version 2.0. See LICENSE for the full
+terms.
+
+--------------------------------------------------------------------------
+Third-party components
+--------------------------------------------------------------------------
+
+SigmaForge builds on the following projects, which remain under their own
+licenses. This file is an attribution notice, not a re-license.
+
+* pySigma (LGPL-2.1) - Sigma rule parsing and the backend/pipeline
+  framework used for conversion.
+  https://github.com/SigmaHQ/pySigma
+
+* pySigma-backend-elasticsearch (LGPL-2.1) - Lucene / Elasticsearch query
+  backend.
+  https://github.com/SigmaHQ/pySigma-backend-elasticsearch
+
+* pySigma-pipeline-windows and pySigma-pipeline-sysmon (LGPL-2.1) - field
+  mapping pipelines for Windows and Sysmon telemetry.
+  https://github.com/SigmaHQ/pySigma-pipeline-windows
+  https://github.com/SigmaHQ/pySigma-pipeline-sysmon
+
+* elasticsearch-py (Apache-2.0) - Elasticsearch client used by the
+  integration tests and the deploy script.
+  https://github.com/elastic/elasticsearch-py
+
+pySigma and its backends are used as unmodified libraries, imported at
+runtime. SigmaForge's own source is not a derivative work of them.
+
+--------------------------------------------------------------------------
+MITRE ATT&CK
+--------------------------------------------------------------------------
+
+This project references the MITRE ATT&CK framework for technique and
+tactic identifiers. ATT&CK is a registered trademark of The MITRE
+Corporation. ATT&CK content is used under MITRE's terms of use:
+https://attack.mitre.org/resources/legal-and-branding/terms-of-use/
+
+MITRE has not reviewed, endorsed, or certified this project.
