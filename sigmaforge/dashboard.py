@@ -21,7 +21,9 @@ from sigmaforge.convert import convert_rule_to_lucene
 from sigmaforge.loader import REPO_ROOT, discover_rule_paths, load_rule
 from sigmaforge.report import build_records, summary
 
-DASHBOARD_HTML = REPO_ROOT / "docs" / "dashboard.html"
+# Written as index.html so GitHub Pages serves it at the site root.
+DASHBOARD_HTML = REPO_ROOT / "docs" / "index.html"
+REPO_URL = "https://github.com/thapaswin125/SigmaForge-detection-as-code"
 
 LEVEL_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3, "informational": 4}
 
@@ -172,15 +174,32 @@ def render() -> str:
     color: #9ecbff; white-space: pre-wrap; word-break: break-word; }}
   .legend {{ color: var(--muted); font-size: 13px; margin-top: 8px; }}
   .legend .dot {{ margin-left: 12px; }}
-  a {{ color: var(--accent); }}
+  a {{ color: var(--accent); text-decoration: none; }}
+  a:hover {{ text-decoration: underline; }}
+  .topbar {{ display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 16px; flex-wrap: wrap; }}
+  .ghlink {{ flex: none; display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--panel); color: var(--fg); font-size: 13px; font-weight: 600; }}
+  .ghlink:hover {{ border-color: var(--accent); text-decoration: none; }}
+  .ghlink svg {{ width: 16px; height: 16px; fill: currentColor; }}
+  footer {{ margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 13px; display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; }}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>SigmaForge</h1>
-    <p>Detection-as-code: every rule tested against real attack and benign events, then converted to a live SIEM query.</p>
-    <div class="gen">Generated {date.today().isoformat()} from live test outcomes. Tier 1 and Tier 2 (Elasticsearch) proven identical by the integration suite.</div>
+  <header class="topbar">
+    <div>
+      <h1>SigmaForge</h1>
+      <p>Detection-as-code: every rule tested against real attack and benign events, then converted to a live SIEM query.</p>
+      <div class="gen">Generated {date.today().isoformat()} from live test outcomes. Tier 1 and Tier 2 (Elasticsearch) proven identical by the integration suite.</div>
+    </div>
+    <a class="ghlink" href="{REPO_URL}">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      View on GitHub
+    </a>
   </header>
 
   <div class="cards">{cards}</div>
@@ -196,6 +215,11 @@ def render() -> str:
     Click a rule to expand.
   </div>
   {"".join(rule_blocks)}
+
+  <footer>
+    <span>SigmaForge &middot; Sigma detections with two-tier testing and CI-gated deployment</span>
+    <span><a href="{REPO_URL}">Source and full test suite on GitHub</a></span>
+  </footer>
 </div>
 </body>
 </html>
