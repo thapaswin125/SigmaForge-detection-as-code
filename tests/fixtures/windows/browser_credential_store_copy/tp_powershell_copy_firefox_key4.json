@@ -1,0 +1,13 @@
+{
+  "_comment": "Firefox key material copied to a staging directory",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -c Copy-Item \"$env:APPDATA\\Mozilla\\Firefox\\Profiles\\x7q.default\\key4.db\" C:\\ProgramData\\k.db",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\ProgramData\\",
+  "User": "CORP\\m.chen",
+  "ProcessId": 7188,
+  "IntegrityLevel": "Medium"
+}

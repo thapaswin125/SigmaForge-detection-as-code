@@ -1,0 +1,13 @@
+{
+  "_comment": "Enumerating available log names, not clearing any of them",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\wevtutil.exe",
+  "CommandLine": "wevtutil el",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "powershell.exe -NoProfile -File C:\\Scripts\\collect_events.ps1",
+  "CurrentDirectory": "C:\\Scripts\\",
+  "User": "CORP\\svc_monitor",
+  "ProcessId": 3994,
+  "IntegrityLevel": "High"
+}

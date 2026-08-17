@@ -5,16 +5,39 @@ Do not edit by hand. CI fails if this file is out of date.
 
 MITRE ATT&CK version: 19.1
 
-Rules: 8. Techniques covered: 8. Tactics covered: 7 of 15.
+Rules: 18. Techniques covered: 26. Tactics covered: 13 of 15.
 
 ## Coverage by tactic
 
 | Tactic | Technique | Name | Rules |
 | --- | --- | --- | --- |
+| collection | T1074.001 | Local Data Staging | [archive_staging_for_exfil](../rules/windows/archive_staging_for_exfil.yml) |
+| collection | T1539 | Steal Web Session Cookie | [browser_credential_store_copy](../rules/windows/browser_credential_store_copy.yml) |
+| collection | T1555.003 | Credentials from Web Browsers | [browser_credential_store_copy](../rules/windows/browser_credential_store_copy.yml) |
+| collection | T1560.001 | Archive via Utility | [archive_staging_for_exfil](../rules/windows/archive_staging_for_exfil.yml) |
 | command-and-control | T1105 | Ingress Tool Transfer | [certutil_bitsadmin_download](../rules/windows/certutil_bitsadmin_download.yml) |
 | credential-access | T1003.001 | LSASS Memory | [lsass_access_susp_mask](../rules/windows/lsass_access_susp_mask.yml) |
+| credential-access | T1539 | Steal Web Session Cookie | [browser_credential_store_copy](../rules/windows/browser_credential_store_copy.yml) |
+| credential-access | T1555.003 | Credentials from Web Browsers | [browser_credential_store_copy](../rules/windows/browser_credential_store_copy.yml) |
+| defense-impairment | T1070 | Indicator Removal | [event_log_cleared](../rules/windows/event_log_cleared.yml) |
+| defense-impairment | T1685 | Disable or Modify Tools | [defender_exclusion_added](../rules/windows/defender_exclusion_added.yml) |
+| defense-impairment | T1685.005 | Clear Windows Event Logs | [event_log_cleared](../rules/windows/event_log_cleared.yml) |
+| discovery | T1018 | Remote System Discovery | [net_recon_domain](../rules/windows/net_recon_domain.yml) |
+| discovery | T1087.002 | Domain Account | [net_recon_domain](../rules/windows/net_recon_domain.yml) |
+| discovery | T1482 | Domain Trust Discovery | [net_recon_domain](../rules/windows/net_recon_domain.yml) |
+| execution | T1047 | Windows Management Instrumentation | [wmi_remote_process_creation](../rules/windows/wmi_remote_process_creation.yml) |
 | execution | T1059.001 | PowerShell | [encoded_powershell](../rules/windows/encoded_powershell.yml) |
+| execution | T1204.002 | Malicious File | [office_spawning_script_host](../rules/windows/office_spawning_script_host.yml) |
+| execution | T1566.001 | Spearphishing Attachment | [office_spawning_script_host](../rules/windows/office_spawning_script_host.yml) |
+| exfiltration | T1048.003 | Exfiltration Over Unencrypted Non-C2 Protocol | [data_upload_via_cli_tool](../rules/windows/data_upload_via_cli_tool.yml) |
+| exfiltration | T1567 | Exfiltration Over Web Service | [data_upload_via_cli_tool](../rules/windows/data_upload_via_cli_tool.yml) |
 | impact | T1490 | Inhibit System Recovery | [shadow_copy_deletion](../rules/windows/shadow_copy_deletion.yml) |
+| initial-access | T1204.002 | Malicious File | [office_spawning_script_host](../rules/windows/office_spawning_script_host.yml) |
+| initial-access | T1566.001 | Spearphishing Attachment | [office_spawning_script_host](../rules/windows/office_spawning_script_host.yml) |
+| lateral-movement | T1021.002 | SMB/Windows Admin Shares | [admin_share_mount](../rules/windows/admin_share_mount.yml) |
+| lateral-movement | T1021.006 | Windows Remote Management | [winrm_remote_execution](../rules/windows/winrm_remote_execution.yml) |
+| lateral-movement | T1047 | Windows Management Instrumentation | [wmi_remote_process_creation](../rules/windows/wmi_remote_process_creation.yml) |
+| lateral-movement | T1570 | Lateral Tool Transfer | [admin_share_mount](../rules/windows/admin_share_mount.yml) |
 | persistence | T1053.005 | Scheduled Task | [schtasks_susp_action](../rules/windows/schtasks_susp_action.yml) |
 | persistence | T1543.003 | Windows Service | [susp_service_creation](../rules/windows/susp_service_creation.yml) |
 | persistence | T1547.001 | Registry Run Keys / Startup Folder | [runkey_susp_path](../rules/windows/runkey_susp_path.yml) |
@@ -26,12 +49,6 @@ Rules: 8. Techniques covered: 8. Tactics covered: 7 of 15.
 
 ## Tactics with zero coverage
 
-- collection
-- defense-impairment
-- discovery
-- exfiltration
-- initial-access
-- lateral-movement
 - reconnaissance
 - resource-development
 

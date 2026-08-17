@@ -1,0 +1,13 @@
+{
+  "_comment": "C$ mounted by IP address to stage a payload on a remote host",
+  "EventID": 1,
+  "UtcTime": "2026-08-05 02:33:52.018",
+  "Image": "C:\\Windows\\System32\\net.exe",
+  "CommandLine": "net use \\\\10.20.4.19\\C$",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "powershell.exe -nop -w hidden",
+  "CurrentDirectory": "C:\\Users\\Public\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 7412,
+  "IntegrityLevel": "High"
+}

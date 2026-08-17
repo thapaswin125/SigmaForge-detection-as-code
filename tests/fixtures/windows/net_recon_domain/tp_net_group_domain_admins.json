@@ -1,0 +1,13 @@
+{
+  "_comment": "Operator enumerating Domain Admins membership from a standard workstation shell",
+  "EventID": 1,
+  "UtcTime": "2026-08-04 11:02:17.884",
+  "Image": "C:\\Windows\\System32\\net.exe",
+  "CommandLine": "net group \"Domain Admins\" /domain",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\j.rivera\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 6612,
+  "IntegrityLevel": "Medium"
+}

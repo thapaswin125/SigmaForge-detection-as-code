@@ -1,0 +1,13 @@
+{
+  "_comment": "Encoded PowerShell executed inside an inbound WinRM session",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoA",
+  "ParentImage": "C:\\Windows\\System32\\wsmprovhost.exe",
+  "ParentCommandLine": "C:\\Windows\\System32\\wsmprovhost.exe -Embedding",
+  "CurrentDirectory": "C:\\Windows\\System32\\",
+  "User": "CORP\\svc_deploy",
+  "ProcessId": 8112,
+  "IntegrityLevel": "High"
+}

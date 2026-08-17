@@ -1,0 +1,13 @@
+{
+  "_comment": "Interactive cmd shell spawned by an inbound WinRM session",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\cmd.exe",
+  "CommandLine": "cmd.exe /c whoami /all",
+  "ParentImage": "C:\\Windows\\System32\\wsmprovhost.exe",
+  "ParentCommandLine": "C:\\Windows\\System32\\wsmprovhost.exe -Embedding",
+  "CurrentDirectory": "C:\\Windows\\System32\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 8180,
+  "IntegrityLevel": "High"
+}

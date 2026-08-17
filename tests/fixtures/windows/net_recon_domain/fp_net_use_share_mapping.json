@@ -1,0 +1,13 @@
+{
+  "_comment": "Ordinary drive mapping via net use: no domain enumeration verb, must stay silent",
+  "EventID": 1,
+  "UtcTime": "2026-08-04 08:14:02.115",
+  "Image": "C:\\Windows\\System32\\net.exe",
+  "CommandLine": "net use Z: \\\\fileserver01\\finance /persistent:yes",
+  "ParentImage": "C:\\Windows\\System32\\userinit.exe",
+  "ParentCommandLine": "userinit.exe",
+  "CurrentDirectory": "C:\\Windows\\System32\\",
+  "User": "CORP\\m.chen",
+  "ProcessId": 4180,
+  "IntegrityLevel": "Medium"
+}

@@ -1,0 +1,13 @@
+{
+  "_comment": "Logon-script mapping of an ordinary named share, not an administrative share",
+  "EventID": 1,
+  "UtcTime": "2026-08-05 08:02:44.771",
+  "Image": "C:\\Windows\\System32\\net.exe",
+  "CommandLine": "net use P: \\\\fileserver01\\projects /persistent:yes",
+  "ParentImage": "C:\\Windows\\System32\\userinit.exe",
+  "ParentCommandLine": "userinit.exe",
+  "CurrentDirectory": "C:\\Windows\\System32\\",
+  "User": "CORP\\m.chen",
+  "ProcessId": 4204,
+  "IntegrityLevel": "Medium"
+}

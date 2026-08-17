@@ -1,0 +1,13 @@
+{
+  "_comment": "7z bundling a user profile into the Windows temp staging directory",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Program Files\\7-Zip\\7z.exe",
+  "CommandLine": "7z.exe a C:\\Windows\\Temp\\out.7z C:\\Users\\a.patel\\Documents",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "powershell.exe -nop -w hidden",
+  "CurrentDirectory": "C:\\Windows\\System32\\",
+  "User": "CORP\\a.patel",
+  "ProcessId": 9188,
+  "IntegrityLevel": "High"
+}

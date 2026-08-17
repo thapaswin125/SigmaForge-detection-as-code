@@ -1,0 +1,46 @@
+title: Outbound File Upload Via Command Line HTTP Client
+id: b292bbff-3d82-4751-aee0-885331266c43
+status: experimental
+description: |
+    Detects curl or PowerShell web cmdlets being used to push a file
+    outbound rather than pull one down. The distinction matters: downloads
+    are everywhere in normal administration, uploads from an endpoint over
+    a scripted HTTP client are not. Matches curl upload flags and
+    Invoke-WebRequest / Invoke-RestMethod combined with a POST or PUT
+    method or an -InFile body. Observed via Sysmon Event ID 1.
+references:
+    - https://attack.mitre.org/techniques/T1048/003/
+    - https://attack.mitre.org/techniques/T1567/
+author: SigmaForge
+date: 2026-08-17
+tags:
+    - attack.exfiltration
+    - attack.t1048.003
+    - attack.t1567
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_curl:
+        Image|endswith: '\curl.exe'
+        CommandLine|contains:
+            - ' -T '
+            - ' --upload-file'
+            - ' -F '
+            - ' --data-binary'
+    selection_ps_client:
+        CommandLine|contains:
+            - 'Invoke-WebRequest'
+            - 'Invoke-RestMethod'
+    selection_ps_upload:
+        CommandLine|contains:
+            - '-Method Post'
+            - '-Method Put'
+            - '-InFile'
+    condition: selection_curl or (selection_ps_client and selection_ps_upload)
+falsepositives:
+    - Telemetry, crash reporting and log shipping scripts that POST bundles
+      to a vendor endpoint; these have a fixed destination worth allowlisting
+    - CI and build agents publishing artefacts over HTTP
+    - Backup tooling that uploads to object storage via curl
+level: high

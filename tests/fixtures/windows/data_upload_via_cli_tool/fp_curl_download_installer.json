@@ -1,0 +1,13 @@
+{
+  "_comment": "Ordinary download with curl, no upload flag present",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\curl.exe",
+  "CommandLine": "curl.exe -o C:\\Windows\\Temp\\agent.msi https://cdn.vendor.example.com/agent/agent.msi",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c C:\\Scripts\\install_agent.cmd",
+  "CurrentDirectory": "C:\\Scripts\\",
+  "User": "CORP\\svc_endpoint",
+  "ProcessId": 4720,
+  "IntegrityLevel": "High"
+}

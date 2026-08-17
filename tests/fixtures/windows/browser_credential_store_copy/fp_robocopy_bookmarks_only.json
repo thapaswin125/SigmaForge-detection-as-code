@@ -1,0 +1,13 @@
+{
+  "_comment": "Profile backup limited to bookmarks, no credential store path touched",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\robocopy.exe",
+  "CommandLine": "robocopy.exe \"C:\\Users\\m.chen\\AppData\\Local\\Google\\Chrome\\User Data\\Default\" \\\\backup01\\profiles\\m.chen Bookmarks",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c C:\\Scripts\\profile_backup.cmd",
+  "CurrentDirectory": "C:\\Scripts\\",
+  "User": "CORP\\svc_backup",
+  "ProcessId": 4520,
+  "IntegrityLevel": "High"
+}

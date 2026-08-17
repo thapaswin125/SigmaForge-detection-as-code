@@ -1,0 +1,13 @@
+{
+  "_comment": "ADMIN$ mounted on a peer workstation with an explicit credential, classic pre-PsExec setup",
+  "EventID": 1,
+  "UtcTime": "2026-08-05 02:31:09.447",
+  "Image": "C:\\Windows\\System32\\net.exe",
+  "CommandLine": "net use \\\\WKSTN-4471\\ADMIN$ /user:CORP\\svc_deploy",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\Public\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 7320,
+  "IntegrityLevel": "High"
+}

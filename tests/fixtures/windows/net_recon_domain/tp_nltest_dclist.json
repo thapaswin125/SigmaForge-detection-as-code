@@ -1,0 +1,13 @@
+{
+  "_comment": "Domain controller enumeration via nltest, typical early discovery step",
+  "EventID": 1,
+  "UtcTime": "2026-08-04 11:03:41.220",
+  "Image": "C:\\Windows\\System32\\nltest.exe",
+  "CommandLine": "nltest /dclist:corp.local",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\j.rivera\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 6704,
+  "IntegrityLevel": "Medium"
+}

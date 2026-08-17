@@ -1,0 +1,50 @@
+title: Archive Utility Staging Data With Password Or Into A World-Writable Path
+id: 6cd3b1da-b479-4e2e-b4fa-b4a02a021b5a
+status: experimental
+description: |
+    Detects command-line archive utilities creating an archive that is
+    either password protected or written into a world-writable staging
+    directory. Collection before exfiltration almost always involves
+    bundling files, and operators reach for rar or 7z with a password so
+    the contents survive inspection in transit. Legitimate scripted backups
+    write to a backup volume and rarely encrypt with an inline password.
+    Observed via Sysmon Event ID 1.
+references:
+    - https://attack.mitre.org/techniques/T1560/001/
+    - https://attack.mitre.org/techniques/T1074/001/
+author: SigmaForge
+date: 2026-08-17
+tags:
+    - attack.collection
+    - attack.t1560.001
+    - attack.t1074.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_tool:
+        Image|endswith:
+            - '\rar.exe'
+            - '\7z.exe'
+            - '\7za.exe'
+            - '\7zG.exe'
+            - '\WinRAR.exe'
+            - '\makecab.exe'
+    selection_password:
+        CommandLine|contains:
+            - ' -hp'
+            - ' -p'
+    selection_staging_path:
+        CommandLine|contains:
+            - '\Users\Public\'
+            - '\ProgramData\'
+            - '\Windows\Temp\'
+            - '\AppData\Local\Temp\'
+    condition: selection_tool and (selection_password or selection_staging_path)
+falsepositives:
+    - Backup and log rotation scripts that archive into a temp directory
+      before moving the result to long term storage
+    - Support tooling that collects diagnostic bundles into %TEMP% before
+      upload to a vendor
+    - Developers archiving build artefacts from a temp working directory
+level: medium

@@ -1,0 +1,13 @@
+{
+  "_comment": "Real-time protection switched off outright before payload execution",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -w hidden -c Set-MpPreference -DisableRealtimeMonitoring $true",
+  "ParentImage": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+  "ParentCommandLine": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+  "CurrentDirectory": "C:\\Windows\\System32\\",
+  "User": "NT AUTHORITY\\SYSTEM",
+  "ProcessId": 5988,
+  "IntegrityLevel": "System"
+}

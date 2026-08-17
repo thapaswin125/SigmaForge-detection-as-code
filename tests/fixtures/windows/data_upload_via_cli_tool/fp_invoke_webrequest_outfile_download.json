@@ -1,0 +1,13 @@
+{
+  "_comment": "Invoke-WebRequest downloading to disk, no POST/PUT and no -InFile",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -NoProfile -c Invoke-WebRequest -Uri https://cdn.vendor.example.com/agent.zip -OutFile C:\\Windows\\Temp\\agent.zip",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c C:\\Scripts\\install_agent.cmd",
+  "CurrentDirectory": "C:\\Scripts\\",
+  "User": "CORP\\svc_endpoint",
+  "ProcessId": 4788,
+  "IntegrityLevel": "High"
+}

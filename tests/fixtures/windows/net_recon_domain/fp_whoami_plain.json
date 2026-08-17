@@ -1,0 +1,13 @@
+{
+  "_comment": "Bare whoami with no /all: prints only the username, not the full token dump",
+  "EventID": 1,
+  "UtcTime": "2026-08-04 09:47:55.902",
+  "Image": "C:\\Windows\\System32\\whoami.exe",
+  "CommandLine": "whoami",
+  "ParentImage": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "ParentCommandLine": "powershell.exe -NoProfile -File C:\\Scripts\\inventory.ps1",
+  "CurrentDirectory": "C:\\Scripts\\",
+  "User": "CORP\\svc_inventory",
+  "ProcessId": 5028,
+  "IntegrityLevel": "High"
+}

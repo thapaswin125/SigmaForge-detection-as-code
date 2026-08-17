@@ -1,0 +1,13 @@
+{
+  "_comment": "Loopback IPC$ session opened by a local management tool, excluded by the local-only filter",
+  "EventID": 1,
+  "UtcTime": "2026-08-05 06:19:30.556",
+  "Image": "C:\\Windows\\System32\\net.exe",
+  "CommandLine": "net use \\\\127.0.0.1\\IPC$",
+  "ParentImage": "C:\\Program Files\\ManageEngine\\agent\\deskagent.exe",
+  "ParentCommandLine": "\"C:\\Program Files\\ManageEngine\\agent\\deskagent.exe\" --selftest",
+  "CurrentDirectory": "C:\\Program Files\\ManageEngine\\agent\\",
+  "User": "NT AUTHORITY\\SYSTEM",
+  "ProcessId": 3388,
+  "IntegrityLevel": "System"
+}

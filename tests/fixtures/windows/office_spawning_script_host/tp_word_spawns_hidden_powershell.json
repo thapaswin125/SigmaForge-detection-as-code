@@ -1,0 +1,13 @@
+{
+  "_comment": "Macro-enabled document spawning hidden PowerShell, canonical maldoc shape",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -w hidden -enc SQBFAFgAIAAoAE4AZQB3AC0A",
+  "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+  "ParentCommandLine": "\"C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE\" /n \"C:\\Users\\m.chen\\Downloads\\Invoice_8871.docm\"",
+  "CurrentDirectory": "C:\\Users\\m.chen\\Downloads\\",
+  "User": "CORP\\m.chen",
+  "ProcessId": 6210,
+  "IntegrityLevel": "Medium"
+}

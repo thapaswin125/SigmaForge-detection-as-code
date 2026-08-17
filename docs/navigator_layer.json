@@ -21,6 +21,31 @@
       "comment": "Rules: lsass_access_susp_mask"
     },
     {
+      "techniqueID": "T1018",
+      "score": 1,
+      "comment": "Rules: net_recon_domain"
+    },
+    {
+      "techniqueID": "T1021.002",
+      "score": 1,
+      "comment": "Rules: admin_share_mount"
+    },
+    {
+      "techniqueID": "T1021.006",
+      "score": 1,
+      "comment": "Rules: winrm_remote_execution"
+    },
+    {
+      "techniqueID": "T1047",
+      "score": 1,
+      "comment": "Rules: wmi_remote_process_creation"
+    },
+    {
+      "techniqueID": "T1048.003",
+      "score": 1,
+      "comment": "Rules: data_upload_via_cli_tool"
+    },
+    {
       "techniqueID": "T1053.005",
       "score": 1,
       "comment": "Rules: schtasks_susp_action"
@@ -36,14 +61,44 @@
       "comment": "Rules: encoded_powershell"
     },
     {
+      "techniqueID": "T1070",
+      "score": 1,
+      "comment": "Rules: event_log_cleared"
+    },
+    {
+      "techniqueID": "T1074.001",
+      "score": 1,
+      "comment": "Rules: archive_staging_for_exfil"
+    },
+    {
+      "techniqueID": "T1087.002",
+      "score": 1,
+      "comment": "Rules: net_recon_domain"
+    },
+    {
       "techniqueID": "T1105",
       "score": 1,
       "comment": "Rules: certutil_bitsadmin_download"
     },
     {
+      "techniqueID": "T1204.002",
+      "score": 1,
+      "comment": "Rules: office_spawning_script_host"
+    },
+    {
+      "techniqueID": "T1482",
+      "score": 1,
+      "comment": "Rules: net_recon_domain"
+    },
+    {
       "techniqueID": "T1490",
       "score": 1,
       "comment": "Rules: shadow_copy_deletion"
+    },
+    {
+      "techniqueID": "T1539",
+      "score": 1,
+      "comment": "Rules: browser_credential_store_copy"
     },
     {
       "techniqueID": "T1543.003",
@@ -54,6 +109,41 @@
       "techniqueID": "T1547.001",
       "score": 1,
       "comment": "Rules: runkey_susp_path"
+    },
+    {
+      "techniqueID": "T1555.003",
+      "score": 1,
+      "comment": "Rules: browser_credential_store_copy"
+    },
+    {
+      "techniqueID": "T1560.001",
+      "score": 1,
+      "comment": "Rules: archive_staging_for_exfil"
+    },
+    {
+      "techniqueID": "T1566.001",
+      "score": 1,
+      "comment": "Rules: office_spawning_script_host"
+    },
+    {
+      "techniqueID": "T1567",
+      "score": 1,
+      "comment": "Rules: data_upload_via_cli_tool"
+    },
+    {
+      "techniqueID": "T1570",
+      "score": 1,
+      "comment": "Rules: admin_share_mount"
+    },
+    {
+      "techniqueID": "T1685",
+      "score": 1,
+      "comment": "Rules: defender_exclusion_added"
+    },
+    {
+      "techniqueID": "T1685.005",
+      "score": 1,
+      "comment": "Rules: event_log_cleared"
     }
   ],
   "gradient": {

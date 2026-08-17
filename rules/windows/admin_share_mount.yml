@@ -1,0 +1,46 @@
+title: Administrative Share Mounted On A Remote Host
+id: e47c7971-e5fa-473e-a611-a4512f5d92ee
+status: experimental
+description: |
+    Detects net.exe mounting a hidden administrative share (ADMIN$, C$,
+    IPC$) on a remote system. Adversaries mount these shares to stage
+    payloads and to set up the SMB session that service-creation style
+    remote execution (PsExec and its clones) then rides on. An explicit
+    credential on the command line makes it substantially more suspicious,
+    because normal use relies on the current Kerberos ticket. Observed via
+    Sysmon Event ID 1.
+references:
+    - https://attack.mitre.org/techniques/T1021/002/
+    - https://attack.mitre.org/techniques/T1570/
+author: SigmaForge
+date: 2026-08-17
+tags:
+    - attack.lateral-movement
+    - attack.t1021.002
+    - attack.t1570
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_net:
+        Image|endswith:
+            - '\net.exe'
+            - '\net1.exe'
+        CommandLine|contains: ' use '
+    selection_admin_share:
+        CommandLine|contains:
+            - 'ADMIN$'
+            - 'C$'
+            - 'IPC$'
+    filter_local_only:
+        CommandLine|contains:
+            - '127.0.0.1'
+            - 'localhost'
+    condition: selection_net and selection_admin_share and not filter_local_only
+falsepositives:
+    - Backup, imaging and software distribution systems that mount C$ on
+      managed endpoints; these come from a small, stable set of source hosts
+      and service accounts that should be allowlisted by name
+    - Administrators mounting ADMIN$ during manual remote troubleshooting
+    - Vulnerability scanners performing authenticated SMB collection
+level: medium

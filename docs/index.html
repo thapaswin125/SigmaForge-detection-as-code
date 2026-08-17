@@ -89,13 +89,13 @@
   </header>
 
   <div class="cards"><div class="card">
-        <div class="card-num ">8</div>
+        <div class="card-num ">18</div>
         <div class="card-label">detection rules</div>
       </div><div class="card">
-        <div class="card-num ">32</div>
+        <div class="card-num ">72</div>
         <div class="card-label">event fixtures tested</div>
       </div><div class="card">
-        <div class="card-num good">32/32</div>
+        <div class="card-num good">72/72</div>
         <div class="card-label">correct outcomes</div>
       </div><div class="card">
         <div class="card-num good">100%</div>
@@ -104,12 +104,12 @@
         <div class="card-num good">100%</div>
         <div class="card-label">false positives suppressed</div>
       </div><div class="card">
-        <div class="card-num ">7/15</div>
+        <div class="card-num ">13/15</div>
         <div class="card-label">ATT&amp;CK tactics covered</div>
       </div></div>
 
   <h2>ATT&CK tactic coverage</h2>
-  <div class="chips"><span class="chip off">collection</span><span class="chip on">command-and-control</span><span class="chip on">credential-access</span><span class="chip off">defense-impairment</span><span class="chip off">discovery</span><span class="chip on">execution</span><span class="chip off">exfiltration</span><span class="chip on">impact</span><span class="chip off">initial-access</span><span class="chip off">lateral-movement</span><span class="chip on">persistence</span><span class="chip on">privilege-escalation</span><span class="chip off">reconnaissance</span><span class="chip off">resource-development</span><span class="chip on">stealth</span></div>
+  <div class="chips"><span class="chip on">collection</span><span class="chip on">command-and-control</span><span class="chip on">credential-access</span><span class="chip on">defense-impairment</span><span class="chip on">discovery</span><span class="chip on">execution</span><span class="chip on">exfiltration</span><span class="chip on">impact</span><span class="chip on">initial-access</span><span class="chip on">lateral-movement</span><span class="chip on">persistence</span><span class="chip on">privilege-escalation</span><span class="chip off">reconnaissance</span><span class="chip off">resource-development</span><span class="chip on">stealth</span></div>
   <div class="legend">Green tactics have at least one rule. Grey tactics are honest gaps.</div>
 
   <h2>Rules and their detection outcomes</h2>
@@ -119,6 +119,150 @@
     Click a rule to expand.
   </div>
   <details class="rule">
+        <summary>
+          <span class="lvl lvl-critical">critical</span>
+          <span class="rtitle">Browser Credential Store Accessed By A Copy Or Database Utility</span>
+          <span class="rtech">T1555.003 Credentials from Web Browsers, T1539 Steal Web Session Cookie</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_chrome_reads_own_store</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Chrome itself starting up and using its own credential store</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_robocopy_bookmarks_only</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Profile backup limited to bookmarks, no credential store path touched</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_esentutl_copy_login_data</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">esentutl copying the Chrome credential database while the browser holds it open</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_powershell_copy_firefox_key4</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Firefox key material copied to a staging directory</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">(process.executable:(*\\cmd.exe OR *\\powershell.exe OR *\\pwsh.exe OR *\\esentutl.exe OR *\\robocopy.exe OR *\\xcopy.exe OR *\\tar.exe OR *\\7z.exe OR *\\rar.exe)) AND (process.command_line:(*\\User\ Data\\Default\\Login\ Data* OR *\\User\ Data\\Default\\Network\\Cookies* OR *\\User\ Data\\Local\ State* OR *\\logins.json* OR *\\key4.db* OR *\\cookies.sqlite*))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-high">high</span>
+          <span class="rtitle">Outbound File Upload Via Command Line HTTP Client</span>
+          <span class="rtech">T1048.003 Exfiltration Over Unencrypted Non-C2 Protocol, T1567 Exfiltration Over Web Service</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_curl_download_installer</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Ordinary download with curl, no upload flag present</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_invoke_webrequest_outfile_download</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Invoke-WebRequest downloading to disk, no POST/PUT and no -InFile</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_curl_upload_archive</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Staged archive pushed outbound with a curl upload flag</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_invoke_webrequest_post_infile</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">PowerShell POSTing a file body to an external endpoint</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">(process.executable:*\\curl.exe AND (process.command_line:(*\ \-T\ * OR *\ \-\-upload\-file* OR *\ \-F\ * OR *\ \-\-data\-binary*))) OR ((process.command_line:(*Invoke\-WebRequest* OR *Invoke\-RestMethod*)) AND (process.command_line:(*\-Method\ Post* OR *\-Method\ Put* OR *\-InFile*)))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-high">high</span>
+          <span class="rtitle">Microsoft Defender Exclusion Or Real-Time Protection Modified</span>
+          <span class="rtech">T1685 Disable or Modify Tools</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_get_mppreference_readonly</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Read-only Defender configuration query by a compliance script</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_set_mppreference_schedule_tuning</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Scan schedule tuning via Set-MpPreference, no exclusion and no protection disabled</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_disable_realtime_monitoring</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Real-time protection switched off outright before payload execution</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_exclusion_path_public</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Defender exclusion carved out for a world-writable staging directory</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">(process.command_line:(*Add\-MpPreference* OR *Set\-MpPreference*)) AND (process.command_line:(*\-ExclusionPath* OR *\-ExclusionExtension* OR *\-ExclusionProcess* OR *\-DisableRealtimeMonitoring* OR *\-DisableBehaviorMonitoring* OR *\-DisableScriptScanning* OR *\-DisableIOAVProtection*))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-high">high</span>
+          <span class="rtitle">Windows Event Log Cleared From The Command Line</span>
+          <span class="rtech">T1685.005 Clear Windows Event Logs, T1070 Indicator Removal</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_wevtutil_enumerate_logs</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Enumerating available log names, not clearing any of them</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_wevtutil_query_events</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Read-only event query used by a monitoring script</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_powershell_clear_eventlog</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Application log cleared through the PowerShell cmdlet</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_wevtutil_clear_security_log</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Security event log destroyed via wevtutil, late-stage anti-forensics</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">(process.executable:*\\wevtutil.exe AND (process.command_line:(*\ cl\ * OR *\ clear\-log*))) OR (process.command_line:(*Clear\-EventLog* OR *Remove\-EventLog* OR *.ClearEventLog\(*))</pre>
+      </details><details class="rule">
         <summary>
           <span class="lvl lvl-high">high</span>
           <span class="rtitle">LSASS Process Access With Credential Dumping Access Mask</span>
@@ -154,6 +298,42 @@
         </table>
         <div class="query-label">Converted Elasticsearch (Lucene) query</div>
         <pre class="query">(winlog.event_data.TargetImage:*\\lsass.exe AND (winlog.event_data.GrantedAccess:(0x1010 OR 0x1410 OR 0x1438 OR 0x143A OR 0x1FFFFF))) AND (NOT ((process.executable:(C\:\\Program\ Files\\Windows\ Defender\\* OR C\:\\ProgramData\\Microsoft\\Windows\ Defender\\Platform\\*)) OR (process.executable:(C\:\\Windows\\System32\\Taskmgr.exe OR C\:\\Windows\\System32\\WerFault.exe OR C\:\\Windows\\SysWOW64\\WerFault.exe))))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-high">high</span>
+          <span class="rtitle">Office Application Spawning A Command Or Script Interpreter</span>
+          <span class="rtech">T1566.001 Spearphishing Attachment, T1204.002 Malicious File</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_explorer_spawns_powershell</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">User opening PowerShell from Explorer, parent is not an Office application</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_word_spawns_print_helper</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Word launching the 32-bit print driver host, normal Office behaviour</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_excel_spawns_mshta</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Excel launching mshta against a remote scriptlet</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_word_spawns_hidden_powershell</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Macro-enabled document spawning hidden PowerShell, canonical maldoc shape</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">(process.parent.executable:(*\\WINWORD.EXE OR *\\EXCEL.EXE OR *\\POWERPNT.EXE OR *\\OUTLOOK.EXE OR *\\MSACCESS.EXE OR *\\VISIO.EXE OR *\\MSPUB.EXE)) AND (process.executable:(*\\cmd.exe OR *\\powershell.exe OR *\\pwsh.exe OR *\\wscript.exe OR *\\cscript.exe OR *\\mshta.exe OR *\\rundll32.exe OR *\\regsvr32.exe OR *\\bitsadmin.exe OR *\\certutil.exe OR *\\curl.exe))</pre>
       </details><details class="rule">
         <summary>
           <span class="lvl lvl-high">high</span>
@@ -228,6 +408,114 @@
         <pre class="query">((process.executable:*\\vssadmin.exe AND (process.command_line:*delete* AND process.command_line:*shadows*)) OR (process.executable:*\\wmic.exe AND (process.command_line:*shadowcopy* AND process.command_line:*delete*))) AND (NOT (process.parent.executable:(C\:\\Program\ Files\\Veeam\\* OR C\:\\Program\ Files\\Microsoft\ Data\ Protection\ Manager\\* OR C\:\\Program\ Files\\Veritas\\*)))</pre>
       </details><details class="rule">
         <summary>
+          <span class="lvl lvl-high">high</span>
+          <span class="rtitle">Remote Process Creation Via WMI</span>
+          <span class="rtech">T1047 Windows Management Instrumentation</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_wmic_local_inventory_query</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Local hardware inventory query, no /node: and no process creation</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_wmiprvse_spawns_conhost</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Console host under WmiPrvSE, not a command interpreter</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_wmic_node_process_call_create</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">wmic launching a process on a remote host over WMI</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_wmiprvse_spawns_powershell</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">PowerShell spawned by the WMI provider host, the receiving end of WMI execution</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">((process.executable:*\\wmic.exe AND process.command_line:*\/node\:*) AND process.command_line:*process\ call\ create*) OR (process.parent.executable:*\\WmiPrvSE.exe AND (process.executable:(*\\powershell.exe OR *\\pwsh.exe OR *\\cmd.exe OR *\\cscript.exe OR *\\wscript.exe OR *\\mshta.exe OR *\\rundll32.exe OR *\\regsvr32.exe)))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-medium">medium</span>
+          <span class="rtitle">Administrative Share Mounted On A Remote Host</span>
+          <span class="rtech">T1021.002 SMB/Windows Admin Shares, T1570 Lateral Tool Transfer</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_loopback_ipc_share</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Loopback IPC$ session opened by a local management tool, excluded by the local-only filter</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_named_share_mapping</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Logon-script mapping of an ordinary named share, not an administrative share</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_admin_share_with_explicit_creds</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">ADMIN$ mounted on a peer workstation with an explicit credential, classic pre-PsExec setup</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_c_share_payload_staging</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">C$ mounted by IP address to stage a payload on a remote host</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">((process.executable:(*\\net.exe OR *\\net1.exe)) AND process.command_line:*\ use\ *) AND (process.command_line:(*ADMIN$* OR *C$* OR *IPC$*)) AND (NOT (process.command_line:(*127.0.0.1* OR *localhost*)))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-medium">medium</span>
+          <span class="rtitle">Archive Utility Staging Data With Password Or Into A World-Writable Path</span>
+          <span class="rtech">T1560.001 Archive via Utility, T1074.001 Local Data Staging</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_scheduled_backup_to_backup_volume</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Nightly backup archive on a dedicated volume, no password and no staging path</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_winrar_extract_to_documents</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">User extracting a downloaded archive into their Documents folder</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_7z_archive_into_windows_temp</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">7z bundling a user profile into the Windows temp staging directory</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_rar_password_protected_to_public</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Finance documents archived with an encrypted-header password into a public path</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">(process.executable:(*\\rar.exe OR *\\7z.exe OR *\\7za.exe OR *\\7zG.exe OR *\\WinRAR.exe OR *\\makecab.exe)) AND ((process.command_line:(*\ \-hp* OR *\ \-p*)) OR (process.command_line:(*\\Users\\Public\\* OR *\\ProgramData\\* OR *\\Windows\\Temp\\* OR *\\AppData\\Local\\Temp\\*)))</pre>
+      </details><details class="rule">
+        <summary>
           <span class="lvl lvl-medium">medium</span>
           <span class="rtitle">Certutil Or Bitsadmin Used To Download A Remote File</span>
           <span class="rtech">T1105 Ingress Tool Transfer</span>
@@ -298,6 +586,42 @@
         </table>
         <div class="query-label">Converted Elasticsearch (Lucene) query</div>
         <pre class="query">(process.executable:(*\\powershell.exe OR *\\pwsh.exe)) AND (process.command_line:(*\ \-enc\ * OR *\ \/enc\ * OR *\ –enc\ * OR *\ —enc\ * OR *\ ―enc\ *) OR process.command_line:(*\ \-encodedcommand\ * OR *\ \/encodedcommand\ * OR *\ –encodedcommand\ * OR *\ —encodedcommand\ * OR *\ ―encodedcommand\ *) OR process.command_line:(*\ \-ec\ * OR *\ \/ec\ * OR *\ –ec\ * OR *\ —ec\ * OR *\ ―ec\ *)) AND (NOT (process.parent.executable:(*\\CcmExec.exe OR *\\MonitoringHost.exe)))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-medium">medium</span>
+          <span class="rtitle">Domain Reconnaissance Via Built-In Windows Utilities</span>
+          <span class="rtech">T1087.002 Domain Account, T1018 Remote System Discovery, T1482 Domain Trust Discovery</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_net_use_share_mapping</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Ordinary drive mapping via net use: no domain enumeration verb, must stay silent</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_whoami_plain</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Bare whoami with no /all: prints only the username, not the full token dump</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_net_group_domain_admins</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Operator enumerating Domain Admins membership from a standard workstation shell</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_nltest_dclist</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Domain controller enumeration via nltest, typical early discovery step</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">(((process.executable:(*\\net.exe OR *\\net1.exe)) AND process.command_line:*\ \/domain*) AND (process.command_line:(*\ group\ * OR *\ user\ * OR *\ accounts\ *))) OR (process.executable:*\\nltest.exe AND (process.command_line:(*\/dclist* OR *\/domain_trusts* OR *\/trusted_domains*))) OR (process.executable:*\\whoami.exe AND process.command_line:*\ \/all*)</pre>
       </details><details class="rule">
         <summary>
           <span class="lvl lvl-medium">medium</span>
@@ -406,6 +730,42 @@
         </table>
         <div class="query-label">Converted Elasticsearch (Lucene) query</div>
         <pre class="query">(winlog.event_data.EventType:SetValue AND registry.path:*\\Services\\* AND registry.path:*\\ImagePath) AND (NOT (winlog.event_data.Details:(C\:\\Windows\\* OR C\:\\Program\ Files\\* OR C\:\\Program\ Files\ \(x86\)\\* OR \&quot;C\:\\Windows\\* OR \&quot;C\:\\Program\ Files\\* OR \&quot;C\:\\Program\ Files\ \(x86\)\\* OR %SystemRoot%\\* OR %windir%\\* OR \\SystemRoot\\* OR System32\\* OR \??\\C\:\\Windows\\*)))</pre>
+      </details><details class="rule">
+        <summary>
+          <span class="lvl lvl-medium">medium</span>
+          <span class="rtitle">Process Launched By WinRM Remote Session Host</span>
+          <span class="rtech">T1021.006 Windows Remote Management</span>
+        </summary>
+        <table class="fixtures">
+          <thead><tr><th>fixture</th><th>intent</th><th>result</th><th></th><th>what it represents</th></tr></thead>
+          <tbody><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_conhost_session_plumbing</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Console host attached to a WinRM session, normal session plumbing</td>
+            </tr><tr class="ok">
+              <td><span class="dot false_positive"></span>fp_local_powershell_from_explorer</td>
+              <td>should stay silent</td>
+              <td>silent</td>
+              <td>&#10003;</td>
+              <td class="cmt">Locally launched PowerShell, no WinRM parent, must stay silent</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_cmd_shell_over_winrm</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Interactive cmd shell spawned by an inbound WinRM session</td>
+            </tr><tr class="ok">
+              <td><span class="dot true_positive"></span>tp_encoded_powershell_over_winrm</td>
+              <td>should fire</td>
+              <td>FIRED</td>
+              <td>&#10003;</td>
+              <td class="cmt">Encoded PowerShell executed inside an inbound WinRM session</td>
+            </tr></tbody>
+        </table>
+        <div class="query-label">Converted Elasticsearch (Lucene) query</div>
+        <pre class="query">process.parent.executable:*\\wsmprovhost.exe AND (NOT (process.executable:(*\\conhost.exe OR *\\WerFault.exe)))</pre>
       </details>
 
   <footer>

@@ -1,0 +1,13 @@
+{
+  "_comment": "User extracting a downloaded archive into their Documents folder",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Program Files\\WinRAR\\WinRAR.exe",
+  "CommandLine": "\"C:\\Program Files\\WinRAR\\WinRAR.exe\" x C:\\Users\\m.chen\\Downloads\\report.rar C:\\Users\\m.chen\\Documents\\",
+  "ParentImage": "C:\\Windows\\explorer.exe",
+  "ParentCommandLine": "C:\\Windows\\Explorer.EXE",
+  "CurrentDirectory": "C:\\Users\\m.chen\\Downloads\\",
+  "User": "CORP\\m.chen",
+  "ProcessId": 6644,
+  "IntegrityLevel": "Medium"
+}

@@ -1,0 +1,13 @@
+{
+  "_comment": "Application log cleared through the PowerShell cmdlet",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -c Clear-EventLog -LogName Application",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\Public\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 9466,
+  "IntegrityLevel": "System"
+}

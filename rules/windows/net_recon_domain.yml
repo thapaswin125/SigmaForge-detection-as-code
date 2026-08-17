@@ -1,0 +1,53 @@
+title: Domain Reconnaissance Via Built-In Windows Utilities
+id: 84c58e55-6691-4fea-902a-ba783c57d505
+status: experimental
+description: |
+    Detects the built-in domain enumeration commands operators run in the
+    first minutes on a host: net.exe group/user queries against the domain,
+    nltest domain controller and trust listing, and whoami /all for the full
+    token and group membership dump. Individually each is a normal admin
+    action; on a workstation, from a non-admin session, they are the classic
+    opening of hands-on-keyboard discovery. Observed via Sysmon Event ID 1.
+references:
+    - https://attack.mitre.org/techniques/T1087/002/
+    - https://attack.mitre.org/techniques/T1018/
+    - https://attack.mitre.org/techniques/T1482/
+author: SigmaForge
+date: 2026-08-17
+tags:
+    - attack.discovery
+    - attack.t1087.002
+    - attack.t1018
+    - attack.t1482
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_net_domain:
+        Image|endswith:
+            - '\net.exe'
+            - '\net1.exe'
+        CommandLine|contains: ' /domain'
+    selection_net_verb:
+        CommandLine|contains:
+            - ' group '
+            - ' user '
+            - ' accounts '
+    selection_nltest:
+        Image|endswith: '\nltest.exe'
+        CommandLine|contains:
+            - '/dclist'
+            - '/domain_trusts'
+            - '/trusted_domains'
+    selection_whoami:
+        Image|endswith: '\whoami.exe'
+        CommandLine|contains: ' /all'
+    condition: (selection_net_domain and selection_net_verb) or selection_nltest or selection_whoami
+falsepositives:
+    - Domain administrators and helpdesk staff enumerating groups or trusts
+      as part of normal support work; scope by user and by source host
+    - Login scripts and inventory agents that call net group or whoami on a
+      schedule, which produce a highly regular parent process and timing
+    - Security and asset management tooling that shells out to nltest to
+      validate domain trust health
+level: medium

@@ -1,0 +1,13 @@
+{
+  "_comment": "Defender exclusion carved out for a world-writable staging directory",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "CommandLine": "powershell.exe -nop -c Add-MpPreference -ExclusionPath 'C:\\Users\\Public\\Libraries'",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\Public\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 5912,
+  "IntegrityLevel": "High"
+}

@@ -1,0 +1,13 @@
+{
+  "_comment": "Security event log destroyed via wevtutil, late-stage anti-forensics",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Windows\\System32\\wevtutil.exe",
+  "CommandLine": "wevtutil cl Security",
+  "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+  "ParentCommandLine": "cmd.exe /c",
+  "CurrentDirectory": "C:\\Users\\Public\\",
+  "User": "CORP\\j.rivera",
+  "ProcessId": 9440,
+  "IntegrityLevel": "System"
+}

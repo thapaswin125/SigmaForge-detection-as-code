@@ -1,0 +1,13 @@
+{
+  "_comment": "Chrome itself starting up and using its own credential store",
+  "EventID": 1,
+  "UtcTime": "2026-08-11 10:00:00.000",
+  "Image": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "CommandLine": "\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --profile-directory=Default",
+  "ParentImage": "C:\\Windows\\explorer.exe",
+  "ParentCommandLine": "C:\\Windows\\Explorer.EXE",
+  "CurrentDirectory": "C:\\Users\\m.chen\\",
+  "User": "CORP\\m.chen",
+  "ProcessId": 6802,
+  "IntegrityLevel": "Medium"
+}

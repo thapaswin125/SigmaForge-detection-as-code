@@ -1,0 +1,41 @@
+title: Windows Event Log Cleared From The Command Line
+id: 4d038456-3800-4db3-adcb-eb5733a7fd2e
+status: experimental
+description: |
+    Detects wevtutil or PowerShell being used to clear a Windows event log.
+    Clearing logs is a late-stage action with almost no benign explanation
+    on a production endpoint: there is no operational reason to destroy the
+    Security or System log, and the act itself removes the evidence of what
+    came before it. Query and enumerate operations are not matched, only
+    destructive ones. Observed via Sysmon Event ID 1.
+references:
+    - https://attack.mitre.org/techniques/T1685/005/
+    - https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil
+author: SigmaForge
+date: 2026-08-17
+tags:
+    - attack.defense-impairment
+    - attack.t1685.005
+    - attack.t1070
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_wevtutil:
+        Image|endswith: '\wevtutil.exe'
+        CommandLine|contains:
+            - ' cl '
+            - ' clear-log'
+    selection_powershell:
+        CommandLine|contains:
+            - 'Clear-EventLog'
+            - 'Remove-EventLog'
+            - '.ClearEventLog('
+    condition: 1 of selection_*
+falsepositives:
+    - Golden image and sysprep pipelines that clear logs before capture, so
+      the built image ships without build-time noise
+    - Lab and test automation that resets logs between runs
+    - Rare administrative cleanup on a host with a corrupted log file, which
+      should still be corroborated with a change ticket
+level: high

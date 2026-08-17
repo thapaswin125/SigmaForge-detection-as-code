@@ -1,0 +1,45 @@
+title: Microsoft Defender Exclusion Or Real-Time Protection Modified
+id: f65c0bae-65b7-4456-adb5-432bc3f881a1
+status: experimental
+description: |
+    Detects Add-MpPreference or Set-MpPreference being used to register a
+    Defender exclusion or to switch off real-time monitoring. Carving out an
+    exclusion for the directory a payload is about to land in, or disabling
+    scanning outright, is one of the most reliable pre-execution steps in a
+    Windows intrusion, and it leaves a clean command-line artefact. Read-only
+    Get-MpPreference calls are deliberately not matched. Observed via Sysmon
+    Event ID 1.
+references:
+    - https://attack.mitre.org/techniques/T1685/
+    - https://learn.microsoft.com/en-us/powershell/module/defender/add-mppreference
+author: SigmaForge
+date: 2026-08-17
+tags:
+    - attack.defense-impairment
+    - attack.t1685
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_cmdlet:
+        CommandLine|contains:
+            - 'Add-MpPreference'
+            - 'Set-MpPreference'
+    selection_impairment:
+        CommandLine|contains:
+            - '-ExclusionPath'
+            - '-ExclusionExtension'
+            - '-ExclusionProcess'
+            - '-DisableRealtimeMonitoring'
+            - '-DisableBehaviorMonitoring'
+            - '-DisableScriptScanning'
+            - '-DisableIOAVProtection'
+    condition: selection_cmdlet and selection_impairment
+falsepositives:
+    - Endpoint onboarding scripts and golden image build steps that add
+      documented performance exclusions for database or build directories
+    - Third party antivirus installers disabling Defender real-time
+      protection during changeover
+    - Developer machines excluding a source tree to speed up compilation;
+      these should still be reviewed rather than blanket allowlisted
+level: high
