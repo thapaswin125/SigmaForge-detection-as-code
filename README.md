@@ -119,6 +119,45 @@ AssertionError: Rule shadow_copy_deletion.yml MATCHED false positive
 fixture fp_backup_retention. The rule would fire on this benign activity.
 ```
 
+## Live detection on real telemetry
+
+The same rules that pass the test suite can run against **live Windows
+process telemetry**, using the exact same offline evaluator
+([sigmaforge/evaluator.py](sigmaforge/evaluator.py)) that Tier 1 proves. A
+detection printed here is the identical rule logic CI validated, firing on
+real activity on the host rather than on a JSON fixture.
+
+```bash
+make collect                       # watch until Ctrl+C
+make collect ARGS="--duration 30"  # watch for 30 seconds
+make collect ARGS="--jsonl"        # one JSON object per detection
+```
+
+```
+SigmaForge live detection
+  14 process_creation rules armed against the live WMI feed.
+  4 rule(s) not exercised by this feed (need create_remote_thread, process_access, registry_set telemetry).
+
+ MEDIUM  Archive Utility Staging Data With Password Or Into A World-Writable Path  [T1074.001, T1560.001]
+    pid 13892  C:\Windows\system32\makecab.exe
+    cmd  "C:\Windows\system32\makecab.exe" "...\collected.bin" "C:\Users\...\AppData\Local\Temp\staged.cab"
+```
+
+The event source is a zero-dependency WMI feed
+([sigmaforge/feeds/wmi_process_feed.ps1](sigmaforge/feeds/wmi_process_feed.ps1)):
+it snapshots the process table on an interval and emits each new process as
+a Sysmon-shaped event, so it needs **no Sysmon install and no administrator
+rights**. Only the 14 `process_creation` rules run against it; the four
+registry/handle/thread rules need their own telemetry and are reported as
+out of scope rather than silently skipped.
+
+Honest limitation: a polling feed cannot see a process that starts *and*
+exits within one interval (a ~50 ms `whoami` can slip between two polls).
+Production deployments point SigmaForge at Sysmon's ETW stream, which is
+push-based and has no such gap. **The evaluator and rules are identical
+either way** — only the event source changes, which is the whole point of
+keeping matching in one place.
+
 ## The gates
 
 | Gate | What it rejects |
@@ -219,10 +258,11 @@ detection logic, FP story, and fixtures contain real content.
 ```
 rules/windows/                 one YAML per rule
 tests/fixtures/<os>/<rule>/    tp_*.json / fp_*.json, one event each
-sigmaforge/                    evaluator, loader, convert, deploy, coverage, scaffold
+sigmaforge/                    evaluator, loader, convert, deploy, coverage, scaffold, collect
+sigmaforge/feeds/              live telemetry feeds (wmi_process_feed.ps1)
 tests/                         evaluator suite, metadata gate, Tier 1, Tier 2
 docs/                          generated coverage.md + navigator_layer.json
-.github/workflows/ci.yml       test -> integration -> deploy
+.github/workflows/             ci.yml (test -> integration -> deploy), pages.yml
 ```
 
 ## CI

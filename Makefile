@@ -49,4 +49,7 @@ deploy:
 new-rule:
 	$(PY) -m sigmaforge.scaffold $(NAME)
 
-.PHONY: install test test-all lint coverage dashboard report up down convert deploy new-rule
+collect:
+	$(PY) -m sigmaforge.collect $(ARGS)
+
+.PHONY: install test test-all lint coverage dashboard report up down convert deploy new-rule collect
